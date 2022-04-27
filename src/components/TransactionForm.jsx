@@ -15,6 +15,10 @@ function TransactionForm() {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryType, setCategoryType] = useState(EXPENSE);
+  const [payeeInput, setPayeeInput] = useState("");
+  const [categoryInput, setCategoryInput] = useState({});
+  const [amountInput, setAmountInput] = useState(0);
+  const [dateInput, setDateInput] = useState("");
 
   const { dispatch } = useContext(TransactionContext);
 
@@ -46,17 +50,22 @@ function TransactionForm() {
   }, []);
 
   const location = useLocation();
-  console.log(location);
 
   // SUBMIT
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    navigate("/home");
+    // navigate("/home");
   };
 
+  // 🧡💛
   // ADD BTN
-  const handleAdd = async (payee, amount, category) => {
-    const createObj = { payee, amount, category };
+  const handleAdd = async () => {
+    // const createObj = { payee, amount, category };
+
+    console.log(categoryInput);
+    console.log(payeeInput);
+    console.log(amountInput);
+    console.log(dateInput);
   };
 
   // DELETE BTN
@@ -130,7 +139,11 @@ function TransactionForm() {
               <label htmlFor="" className="form-label">
                 Payee
               </label>
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                onChange={(event) => setPayeeInput(event.target.value)}
+              />
             </div>
 
             {/* CATAGORY */}
@@ -138,7 +151,15 @@ function TransactionForm() {
               <label htmlFor="" className="form-label">
                 Catagory
               </label>
-              <select name="" id="" className="form-select">
+              <select
+                name=""
+                id=""
+                className="form-select"
+                onChange={
+                  (event) => setCategoryInput(event.target.value)
+                  // console.log(event.target.value)
+                }
+              >
                 {filterCategories.map((el) => (
                   <option key={el.id} value={el.id}>
                     {el.name}
@@ -152,7 +173,11 @@ function TransactionForm() {
               <label htmlFor="" className="form-label">
                 Amount
               </label>
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                onChange={(event) => setAmountInput(event.target.value)}
+              />
             </div>
 
             {/* DATE */}
@@ -160,17 +185,17 @@ function TransactionForm() {
               <label htmlFor="" className="form-label">
                 Date
               </label>
-              <input type="date" className="form-control" />
+              <input
+                type="date"
+                className="form-control"
+                onChange={(event) => setDateInput(event.target.value)}
+              />
             </div>
 
             {/* Save */}
             <div className="col-12">
               <div className="d-grid mt-3">
-                <button
-                  className="btn btn-primary"
-                  // onSubmit={handleClickAdd}
-                  onClick={handleAdd}
-                >
+                <button className="btn btn-primary" onClick={handleAdd}>
                   Save
                 </button>
               </div>
